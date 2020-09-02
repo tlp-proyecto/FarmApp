@@ -18,7 +18,7 @@
     <!-- Plugins CSS -->    
     <link rel="stylesheet" href="assets/plugins/prism/prism.css">
     <!-- Theme CSS -->  
-    <link id="theme-style" rel="stylesheet" href="assets/css/theme-1.css">
+    <link id="theme-style" rel="stylesheet" href="assets/css/theme-3.css">
     <!-- GitHub Button -->
     <script async defer src="https://buttons.github.io/buttons.js"></script> 
 </head> 
@@ -57,11 +57,11 @@
                 <div class="navbar-collapse collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav">
                         <li class="nav-item sr-only"><a class="nav-link" href="#home">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./modulos/login.php">Registrarse</a></li>
-                        <li class="nav-item"><a class="nav-link" href="./modulos/farmacias.html">Farmacias</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="./modulos/login.php">Registrarse</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="./modulos/farmacias.html">Farmacias</a></li>
                         
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">Acerca de</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#contact">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#about">Acerca de</a></li>
                     </ul><!--//nav-->
                 </div><!--//navabr-collapse-->
             </nav><!--//main-nav-->
