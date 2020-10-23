@@ -21,141 +21,16 @@
     session_start();
 
     //include 'conexion.php';
-    $consulta = 'SELECT id_farmacias, nombre, link_direccion, nombre_calle_direccion, horario_farmacia FROM farmacias,direccion WHERE farmacias.id_farmacias=direccion.rela_farmacias';
-    $sql = $pdo->query($consulta);
-    $sql2 = $sql->fetchAll(PDO::FETCH_OBJ);
+    $id = $_GET["id"];
+    $consul = $pdo->prepare("SELECT `id_farmacias`, `nombre`, `link_direccion`, `calle`, `altura`, `horario_matutino_1`, `horario_matutino_2`, `horario_vespertino_1`, `horario_vespertino_2` FROM `farmacias` where `id_farmacias` = ?" );
+    $consul->execute([$id]);
+    $pharm = $consul->fetch(PDO::FETCH_OBJ);
     ?>
     <!-- Sidebar Menu -->
-    <div class="ui sidebar inverted vertical menu sidebar-menu" id="sidebar">
-        <div class="item">
-            <div class="header">General</div>
-            <div class="menu">
-                <a class="item">
-                    <div>
-                        <i class="icon tachometer alternate"></i>
-                        Dashboard
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="header">Administración</div>
-            <div class="menu">
-                <a class="item">
-                    <div><i class="cogs icon"></i>Configuraciones</div>
-                </a>
-                <a class="item">
-                    <div><i class="users icon"></i>Equipo de desarrollo</div>
-                </a>
-            </div>
-        </div>
-
-        <a href="inicioadmin.php" class="item">
-            <div>
-                <i class="icon home blue"></i>
-                Inicio
-            </div>
-        </a>
-
-        <a href="farmaciasadmin.php" class="item active">
-            <div>
-                <i class="icon plus green"></i>
-                Farmacias
-            </div>
-        </a>
-
-        <a href="productosadmin.php" class="item">
-            <div>
-                <i class="icon shopping cart red"></i>
-                Productos
-            </div>
-        </a>
-
-        <a class="item">
-            <div>
-                <i class="icon lightbulb teal"></i>
-                Farmacias
-            </div>
-        </a>
-        <div class="item">
-            <div class="header">Otros</div>
-            <div class="menu">
-                <a href="#" class="item">
-                    <div>
-                        <i class="icon envelope"></i>
-                        Mensajes
-                    </div>
-                </a>
-
-                <a href="#" class="item">
-                    <div>
-                        <i class="icon calendar alternate"></i>
-                        Calendarios de Turnos
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="item">
-            <form action="#">
-                <div class="ui mini action input">
-                    <input type="text" placeholder="Buscar..." />
-                    <button class="ui mini icon button">
-                        <i class="search icon"></i>
-                    </button>
-                </div>
-            </form>
-        </div>
-        <div class="ui segment inverted">
-            <div class="ui tiny olive inverted progress">
-                <div class="bar" style="width: 30%"></div>
-                <div class="label">Monthly Bandwidth</div>
-            </div>
-
-            <div class="ui tiny teal inverted progress">
-                <div class="bar" style="width: 78%"></div>
-                <div class="label">Disk Usage</div>
-            </div>
-        </div>
-    </div>
-
+    <?php include './includes/pages/sidebarmenu.php' ?>
     <!-- sidebar -->
     <!-- top nav -->
-
-    <nav class="ui top fixed inverted menu">
-        <div class="left menu">
-            <a href="#" class="sidebar-menu-toggler item" data-target="#sidebar">
-                <i class="sidebar icon"></i>
-            </a>
-            <a href="#" class="header item">FarmApp </a>
-        </div>
-
-        <div class="right menu">
-            <a href="#" class="item">
-                <i class="bell icon"></i>
-            </a>
-            <div class="ui dropdown item">
-                <i class="user cirlce icon"></i>
-                <div class="menu">
-                    <a href="#" class="item">
-                        <?php
-                        $usuario = $_SESSION['usuario'];
-                        if (!empty($usuario)) {
-                            echo '<div class="single line positive"><i class="plus green icon"></i>' . $usuario . '</div>';;
-                        }
-                        ?>
-                        <!-- <i class="info circle icon"></i> Profile</a> -->
-                        <a href="#" class="item">
-                            <i class="wrench icon"></i>
-                            Settings</a>
-                        <a href="cerrarsesion.php" class="item">
-                            <i class="sign-out icon"></i>
-                            Salir
-                        </a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <?php include './includes/pages/topnav.php' ?>
 
     <!-- top nav -->
 
@@ -181,150 +56,136 @@
                         </div>
                     </div>
                     <div class="column">
-                        <div class="ui inverted segment">
-                            <div class="ui inverted form">
-                                <div class="two fields">
+                        <form action="validareditarfarmacia.php?id=<?php echo $pharm->id_farmacias ?>" method="POST" class="ui form">
+                            <div class="ui inverted segment">
+                                <div class="ui inverted form">
                                     <div class="field">
                                         <label>Farmacia</label>
-                                        <input placeholder="Farmacia" type="text">
+                                        <div class="fields">
+                                            <div class="four wide field">
+                                                <input name="id_farmacias" type="text" placeholder="#" value="<?php echo $pharm->id_farmacias ?>" disabled>
+                                            </div>
+                                            <div class="twelve wide field">
+                                                <input name="nombre" placeholder="Farmacia" type="text" value="<?php echo $pharm->nombre ?>">
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="field">
-                                        <label>Dirección</label>
-                                        <input placeholder="Dirección" type="text">
+                                        <label for="link_direccion">Ubicacion en el mapa</label>
+                                        <textarea name="link_direccion" id="link_direccion"><?php echo $pharm->link_direccion ?></textarea>
                                     </div>
-                                </div>
-                                <div class="field">
-                                    <label>Ubicacion en el mapa</label>
-                                    <textarea placeholder="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3580.4491243093175!2d-58.17769638531427!3d-26.182064469431456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x945ca5e512cf841d%3A0xb4fad74281163a5f!2sFarmacia%20Ferreyra!5e0!3m2!1ses-419!2sar!4v1603064894659!5m2!1ses-419!2sar"></textarea>
-                                </div>
-                                <div class="fields">
-                                    <div class="eight wide field">
-                                        <label>Horario Matutino</label>
+                                    <div class="field">
+                                        <div class="fields">
+                                            <div class="twelve wide field">
+                                                <label>Dirección</label>
+                                                <input name="nombre_calle_direccion" placeholder="Dirección" type="text" value="<?php echo $pharm->calle ?>">
+                                            </div>
+                                            <div class="four wide field">
+                                                <label>Altura</label>
+                                                <input name="id_farmacias" type="number" placeholder="#" value="<?php echo $pharm->altura ?>">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="fields">
+                                        <div class="eight wide field">
+                                            <label>Horario Matutino</label>
+                                            <div class="two fields">
+                                                <div class="field">
+                                                    <select class="ui fluid search dropdown" name="horario_matutino_1">
+                                                        <option value="1"><?php echo $pharm->horario_matutino_1 ?></option>
+                                                        <option value="2">00:00hs</option>
+                                                        <option value="2">05:00hs</option>
+                                                        <option value="3">05:30hs</option>
+                                                        <option value="4">06:00hs</option>
+                                                        <option value="5">06:30hs</option>
+                                                        <option value="6">07:00hs</option>
+                                                        <option value="7">07:30hs</option>
+                                                        <option value="8">08:00hs</option>
+                                                        <option value="9">08:30hs</option>
+                                                    </select>
+                                                </div>
+                                                <div class="field">
+                                                    <select class="ui fluid search dropdown" name="horario_matutino_2">
+                                                        <option value="1"><?php echo $pharm->horario_matutino_2 ?></option>
+                                                        <option value="2">12:00hs</option>
+                                                        <option value="3">12:30hs</option>
+                                                        <option value="4">13:00hs</option>
+                                                        <option value="5">13:30hs</option>
+                                                        <option value="6">14:00hs</option>
+                                                        <option value="7">14:30hs</option>
+                                                        <option value="8">15:00hs</option>
+                                                        <option value="9">15:30hs</option>
+                                                        <option value="10">16:00hs</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="eight wide field">
+                                            <label>Horario Vespertino</label>
+                                            <div class="two fields">
+                                                <div class="field">
+                                                    <select class="ui fluid search dropdown" name="">
+                                                       
+                                                        <option value="1"><?php echo $pharm->horario_vespertino_1 ?></option>
+                                                        <option value="12:30hs">12:30hs</option>
+                                                        <option value="3">13:00hs</option>
+                                                        <option value="4">13:30hs</option>
+                                                        <option value="5">14:00hs</option>
+                                                        <option value="6">14:30hs</option>
+                                                        <option value="7">15:00hs</option>
+                                                        <option value="8">15:30hs</option>
+                                                        <option value="9">16:00hs</option>
+                                                        <option value="10">16:30hs</option>
+                                                        <option value="11">17:00hs</option>
+                                                        <option value="12">17:30hs</option>
+                                                    </select>
+                                                </div>
+                                                <div class="field">
+                                                    <select class="ui fluid search dropdown" name="card[expire-month]">
+                                                        <option value="">20:00hs</option>
+                                                        <option value="1">20:00hs</option>
+                                                        <option value="2">20:30hs</option>
+                                                        <option value="3">21:00hs</option>
+                                                        <option value="4">21:30hs</option>
+                                                        <option value="5">22:00hs</option>
+                                                        <option value="6">22:30hs</option>
+                                                        <option value="7">23:00hs</option>
+                                                        <option value="8">23:30hs</option>
+                                                        <option value="9">00:00hs</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label>Activar turno</label>
                                         <div class="two fields">
                                             <div class="field">
                                                 <select class="ui fluid search dropdown" name="card[expire-month]">
-                                                    <option value="">08:00hs</option>
-                                                    <option value="1">January</option>
-                                                    <option value="2">February</option>
-                                                    <option value="3">March</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">June</option>
-                                                    <option value="7">July</option>
-                                                    <option value="8">August</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">December</option>
+                                                    <option value="1">Activar</option>
+                                                    <option value="2">Desactivar</option>
                                                 </select>
                                             </div>
                                             <div class="field">
                                                 <select class="ui fluid search dropdown" name="card[expire-month]">
                                                     <option value="">12:00hs</option>
-                                                    <option value="1">January</option>
-                                                    <option value="2">February</option>
-                                                    <option value="3">March</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">June</option>
-                                                    <option value="7">July</option>
-                                                    <option value="8">August</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">December</option>
+                                                    <option value="1">12:00hs</option>
+                                                    <option value="2">12:30hs</option>
+                                                    <option value="3">13:00hs</option>
+                                                    <option value="4">13:30hs</option>
+                                                    <option value="5">14:00hs</option>
+                                                    <option value="6">14:30hs</option>
+                                                    <option value="7">15:00hs</option>
+                                                    <option value="8">15:30hs</option>
+                                                    <option value="9">16:00hs</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="eight wide field">
-                                        <label>Horario Vespertino</label>
-                                        <div class="two fields">
-                                            <div class="field">
-                                                <select class="ui fluid search dropdown" name="card[expire-month]">
-                                                    <option value="">16:00hs</option>
-                                                    <option value="1">January</option>
-                                                    <option value="2">February</option>
-                                                    <option value="3">March</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">June</option>
-                                                    <option value="7">July</option>
-                                                    <option value="8">August</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">December</option>
-                                                </select>
-                                            </div>
-                                            <div class="field">
-                                                <select class="ui fluid search dropdown" name="card[expire-month]">
-                                                    <option value="">20:00hs</option>
-                                                    <option value="1">January</option>
-                                                    <option value="2">February</option>
-                                                    <option value="3">March</option>
-                                                    <option value="4">April</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">June</option>
-                                                    <option value="7">July</option>
-                                                    <option value="8">August</option>
-                                                    <option value="9">September</option>
-                                                    <option value="10">October</option>
-                                                    <option value="11">November</option>
-                                                    <option value="12">December</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <button type="submit" name="editar" class="ui submit green button">Editar</button>
                                 </div>
-                                <div class="field">
-                                    <label>Horario de turnos</label>
-                                    <div class="two fields">
-                                        <div class="field">
-                                            <select class="ui fluid search dropdown" name="card[expire-month]">
-                                                <option value="">08:00hs</option>
-                                                <option value="1">January</option>
-                                                <option value="2">February</option>
-                                                <option value="3">March</option>
-                                                <option value="4">April</option>
-                                                <option value="5">May</option>
-                                                <option value="6">June</option>
-                                                <option value="7">July</option>
-                                                <option value="8">August</option>
-                                                <option value="9">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
-                                            </select>
-                                        </div>
-                                        <div class="field">
-                                            <select class="ui fluid search dropdown" name="card[expire-month]">
-                                                <option value="">12:00hs</option>
-                                                <option value="1">January</option>
-                                                <option value="2">February</option>
-                                                <option value="3">March</option>
-                                                <option value="4">April</option>
-                                                <option value="5">May</option>
-                                                <option value="6">June</option>
-                                                <option value="7">July</option>
-                                                <option value="8">August</option>
-                                                <option value="9">September</option>
-                                                <option value="10">October</option>
-                                                <option value="11">November</option>
-                                                <option value="12">December</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="inline field">
-                                    <div class="ui checkbox">
-                                        <input type="checkbox" tabindex="0" class="">
-                                        <label>I agree to the terms and conditions</label>
-                                    </div>
-                                </div>
-                                <div class="ui submit button">Submit</div>
                             </div>
-                        </div>
+                        </form>
                     </div>
                     <div class="four column centered row">
                         <div class="column"></div>
@@ -333,37 +194,7 @@
                 </div>
             </div>
             <!-- Footer -->
-            <div class="ui inverted vertical footer segment">
-                <div class="ui container">
-                    <div class="ui stackable inverted divided equal height stackable grid">
-                        <div class="three wide column">
-                            <h4 class="ui inverted header">About</h4>
-                            <div class="ui inverted link list">
-                                <a href="#" class="item">Sitemap</a>
-                                <a href="#" class="item">Contact Us</a>
-                                <a href="#" class="item">Religious Ceremonies</a>
-                                <a href="#" class="item">Gazebo Plans</a>
-                            </div>
-                        </div>
-                        <div class="three wide column">
-                            <h4 class="ui inverted header">Services</h4>
-                            <div class="ui inverted link list">
-                                <a href="#" class="item">Banana Pre-Order</a>
-                                <a href="#" class="item">DNA FAQ</a>
-                                <a href="#" class="item">How To Access</a>
-                                <a href="#" class="item">Favorite X-Men</a>
-                            </div>
-                        </div>
-                        <div class="seven wide column">
-                            <h4 class="ui inverted header">Footer Header</h4>
-                            <p>
-                                Extra space for a call to action inside the footer that could
-                                help re-engage users.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php include './includes/pages/footer.php' ?>
         </div>
     </div>
 

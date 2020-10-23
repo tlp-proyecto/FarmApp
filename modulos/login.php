@@ -78,14 +78,13 @@ session_start();
             <div class="field">
               <div class="ui left icon input">
                 <i class="user green icon"></i>
-                <input type="text" id="nombre" name="usuario" placeholder="usuario" required="" />
+                <input type="email" id="email" name="usuario" placeholder="usuario" required="" />
               </div>
             </div>
 
-
             <div class="field">
               <div class="ui left icon input">
-                <input type="password" id="nombre" name="password" placeholder="contraseña" required="" />
+                <input type="password" id="password" name="password" placeholder="contraseña" required="" />
               </div>
             </div>
            
@@ -114,7 +113,6 @@ session_start();
                        
                          */
                         ?>
-
             <button class="ui fluid large green submit button registered-only">
               Ingresar
             </button>

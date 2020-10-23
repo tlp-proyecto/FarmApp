@@ -1,16 +1,11 @@
 let getAlert = document.getElementById("alert");
 
-usuarios = [];
-
-usuarios.push(["Juan David", "juandavid@gmail.com"]);
-usuarios.push(["Juniors Ferreira", "juniors90@gmail.com"]);
-
 // VALIDAR NOMBRE
-function validarNombre(nombre) {
-  if (nombre.lenght == 0) return false;
-  if (nombre.lenght > 50) return false;
-  if (!/^[\u00F1A-Za-z _]*[\u00F1A-Za-z][\u00F1A-Za-z _]*$/.test(nombre))
-    return false;
+function validarPassword(password) {
+  if (password.lenght == 0) return false;
+  if (password.lenght > 50) return false;
+  /* if (!/^[\u00F1A-Za-z _]*[\u00F1A-Za-z][\u00F1A-Za-z _]*$/.test(nombre))
+    return false; */
   return true;
 }
 
@@ -21,7 +16,7 @@ function validarCorreo(email) {
     return false;
   return true;
 }
-
+// mensaje de alerta
 function getHtmlAlert(tipo, header, mensaje) {
   return `<div class="ui ${tipo} message transition">
                  <i class="close icon" onclick="ocultar()"></i>
@@ -30,45 +25,31 @@ function getHtmlAlert(tipo, header, mensaje) {
             </div>`;
 }
 
-/*function getHtmlAlert(tipo, header, mensaje) {
-  return `<div class="ui ${tipo} message transition">
-                 <i class="close icon" onclick="$(this).closest(".message").transition("fade");"></i>
-                 <div class="header">${header}</div>
-                 <p>${mensaje}</p>
-            </div>`;
-}*/
-
 // FUNCIÓN DE ALERTA
 function showAlert(tipo, header, mensaje, divElement) {
   divElement.innerHTML = getHtmlAlert(tipo, header, mensaje);
 }
-// FUNCIÓN
-function existeCorreo(email) {
-  return usuariosRegister.find(function (item) {
-    return item.correo == email;
-  });
-}
 
-function validarSuscriptor() {
-  let nombre = document.getElementById("nombre").value;
-  let email = document.getElementById("e-mail").value;
+function validarUsuario() {
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
 
-  if (!validarNombre(nombre)) {
+  if (!validarPassword(password)) {
     showAlert(
       "error", // tipo
-      "ERROR EN EL NOMBRE", // header
-      "El nombre de usuario es incorrecto", // mensaje
+      "ERROR EN PASSWORD", // header
+      "El password es incorrecto", // mensaje
       getAlert
     );
     return false;
-  } else if (!validarCorreo(email)) {
+  } else if (!validarCorreo(password)) {
     showAlert(
       "error", // tipo
       "ERROR EN EL E-MAIL", // header
       "El email es incorrecto", // mensaje
       getAlert
     );
-    return false // tipo
+    return false; // tipo
   } else if (existeCorreo(email)) {
     showAlert(
       "error",
@@ -78,13 +59,6 @@ function validarSuscriptor() {
     );
     return false;
   } else {
-    usuariosRegister.push([nombre, email]);
-    showAlert(
-      "info",
-      "Ingreso en forma correcta",
-      "Bienvenido usuario",
-      getAlert
-    );
+    return true;
   }
 }
-
