@@ -52,7 +52,7 @@
     <div class="item">
         <div class="header">Otros</div>
         <div class="menu">
-            <a href="#" class="item">
+            <a href="http://localhost:3000/" class="item">
                 <div>
                     <i class="icon envelope"></i>
                     Mensajes

@@ -91,7 +91,7 @@
                                             <label>Horario Matutino</label>
                                             <div class="two fields">
                                                 <div class="field">
-                                                    <select class="ui fluid search dropdown" name="horario_matutino_1">
+                                                    <select class="ui fluid search dropdown" name="horario_matutino_1" id="horario_matutino_1">
                                                         <option value="1"><?php echo $pharm->horario_matutino_1 ?></option>
                                                         <option value="2">00:00hs</option>
                                                         <option value="2">05:00hs</option>
@@ -105,7 +105,7 @@
                                                     </select>
                                                 </div>
                                                 <div class="field">
-                                                    <select class="ui fluid search dropdown" name="horario_matutino_2">
+                                                    <select class="ui fluid search dropdown" name="horario_matutino_2" id="horario_matutino_2">
                                                         <option value="1"><?php echo $pharm->horario_matutino_2 ?></option>
                                                         <option value="2">12:00hs</option>
                                                         <option value="3">12:30hs</option>
@@ -124,34 +124,34 @@
                                             <label>Horario Vespertino</label>
                                             <div class="two fields">
                                                 <div class="field">
-                                                    <select class="ui fluid search dropdown" name="">
-                                                       
+                                                    <select class="ui fluid search dropdown" name="horario_vespertino_1" id="horario_vespertino_1 ">
                                                         <option value="1"><?php echo $pharm->horario_vespertino_1 ?></option>
+                                                        <option value="12:00hs">12:00hs</option>
                                                         <option value="12:30hs">12:30hs</option>
-                                                        <option value="3">13:00hs</option>
-                                                        <option value="4">13:30hs</option>
-                                                        <option value="5">14:00hs</option>
-                                                        <option value="6">14:30hs</option>
-                                                        <option value="7">15:00hs</option>
-                                                        <option value="8">15:30hs</option>
-                                                        <option value="9">16:00hs</option>
-                                                        <option value="10">16:30hs</option>
-                                                        <option value="11">17:00hs</option>
-                                                        <option value="12">17:30hs</option>
+                                                        <option value="13:00hs">13:00hs</option>
+                                                        <option value="13:30hs">13:30hs</option>
+                                                        <option value="14:00hs">14:00hs</option>
+                                                        <option value="14:30hs">14:30hs</option>
+                                                        <option value="15:00hs">15:00hs</option>
+                                                        <option value="15:30hs">15:30hs</option>
+                                                        <option value="16:00hs">16:00hs</option>
+                                                        <option value="16:30hs">16:30hs</option>
+                                                        <option value="17:00hs">17:00hs</option>
+                                                        <option value="17:30hs">17:30hs</option>
                                                     </select>
                                                 </div>
                                                 <div class="field">
-                                                    <select class="ui fluid search dropdown" name="card[expire-month]">
-                                                        <option value="">20:00hs</option>
-                                                        <option value="1">20:00hs</option>
-                                                        <option value="2">20:30hs</option>
-                                                        <option value="3">21:00hs</option>
-                                                        <option value="4">21:30hs</option>
-                                                        <option value="5">22:00hs</option>
-                                                        <option value="6">22:30hs</option>
-                                                        <option value="7">23:00hs</option>
-                                                        <option value="8">23:30hs</option>
-                                                        <option value="9">00:00hs</option>
+                                                    <select class="ui fluid search dropdown" name="horario_vespertino_2" id="horario_vespertino_2">
+                                                        <option value="1"><?php echo $pharm->horario_vespertino_2 ?></option>
+                                                        <option value="20:00hs">20:00hs</option>
+                                                        <option value="20:30hs">20:30hs</option>
+                                                        <option value="21:00hs">21:00hs</option>
+                                                        <option value="21:30hs">21:30hs</option>
+                                                        <option value="22:00hs">22:00hs</option>
+                                                        <option value="22:30hs">22:30hs</option>
+                                                        <option value="23:00hs">23:00hs</option>
+                                                        <option value="23:30hs">23:30hs</option>
+                                                        <option value="00:00hs">00:00hs</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -182,7 +182,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" name="editar" class="ui submit green button">Editar</button>
+                                    <button type="submit" name="editar" class="ui submit green button">Guardar</button>
                                 </div>
                             </div>
                         </form>
@@ -193,10 +193,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Footer -->
-            <?php include './includes/pages/footer.php' ?>
         </div>
     </div>
+    
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js" integrity="sha256-t8GepnyPmw9t+foMh3mKNvcorqNHamSKtKRxxpUEgFI=" crossorigin="anonymous"></script>

@@ -19,8 +19,10 @@
     //conexion a la base de datos
     require('conexion.php');
     session_start();
-
     //include 'conexion.php';
+    $consulta = 'SELECT `nombre`, `nombre_producto`, `precio`,`catidad`, `marca`, `descripcion`, `icono_categoria` FROM `farmacias`, `productos`, `farmacia_productos` WHERE farmacias.id_farmacias = farmacia_productos.id_farmacias AND productos.id_productos = farmacia_productos.id_productos';
+    $sql = $pdo->query($consulta);
+    $sql3 = $sql->fetchAll(PDO::FETCH_OBJ);
     ?>
     <!-- Sidebar Menu -->
     <div class="ui sidebar inverted vertical menu sidebar-menu" id="sidebar">
@@ -171,98 +173,32 @@
             </div>
             <!-- Tarjeta de productos -->
             <div class="ui grid stackable padded">
-                <!-- Primera Tarjeta de productos -->
-                <div class="four wide computer eight wide tablet sixteen wide mobile column">
-                    <div class="ui fluid card">
-                        <div class="content">
-                            <div class="ui right floated header teal">
-                                <i class="icon leaf"></i>
+                <?php foreach ($sql3 as $mostrar) { ?>
+                    <!-- Primera Tarjeta de productos -->
+                    <div class="four wide computer eight wide tablet sixteen wide mobile column">
+                        <div class="ui fluid card">
+                            <div class="content">
+                                <div class="ui right floated header purple">
+                                    <i class="icon <?php echo $mostrar->icono_categoria ?>"></i>
+                                </div>
+                                <div class="header">
+                                    <div class="ui purple header"><?php echo $mostrar->nombre_producto ?> <?php echo $mostrar->marca ?></div>
+                                    <div class="sub header">$<?php echo $mostrar->precio ?></div>
+                                </div>
+                                <div class="meta blue">x <?php echo $mostrar->catidad ?></div>
+                                <div class="description">
+                                    <?php echo $mostrar->descripcion ?>
+                                </div>
                             </div>
-                            <div class="header">
-                                <div class="ui teal header">Shampoo Dove</div>
-                                <div class="sub header">$91.00</div>
-                            </div>
-                            <div class="meta blue">x 200ml</div>
-                            <div class="description">
-                                Shampoo y acondicionador 
-                            </div>
-                        </div>
-                        <div class="extra content">
-                            <div class="ui two buttons">
-                                <div class="ui teal button">Ver en Farmacias</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Segunda Tarjeta de productos -->
-                <div class="four wide computer eight wide tablet sixteen wide mobile column">
-                    <div class="ui fluid card">
-                        <div class="content">
-                            <div class="ui right floated header purple">
-                                <i class="icon paint brush"></i>
-                            </div>
-                            <div class="header">
-                                <div class="ui purple header">Esmalte Estrella</div>
-                                <div class="sub header">$96.50</div>
-                            </div>
-                            <div class="meta blue">x 100ml</div>
-                            <div class="description">
-                                Nueva linea de quitaesmaltes
-                            </div>
-                        </div>
-                        <div class="extra content">
-                            <div class="ui two buttons">
-                                <div class="ui purple button">Ver en Farmacias</div>
+                            <div class="extra content">
+                                <div class="ui two buttons">
+                                    <div class="ui purple button">Ver en <?php echo $mostrar->nombre ?></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- Terceera Tarjeta de productos -->
-                <div class="four wide computer eight wide tablet sixteen wide mobile column">
-                    <div class="ui fluid card">
-                        <div class="content">
-                            <div class="ui right floated header green">
-                                <i class="icon medkit"></i>
-                            </div>
-                            <div class="header">
-                                <div class="ui green header">Cepillo Oral-B</div>
-                                <div class="sub header">$200.00</div>
-                            </div>
-                            <div class="meta">x 100ml</div>
-                            <div class="description">
-                                Pro-Gengiva 35 Suave
-                            </div>
-                        </div>
-                        <div class="extra content">
-                            <div class="ui two buttons">
-                                <div class="ui green button">Ver en Farmacias</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Cuarta Tarjeta de productos -->
-                <div class="four wide computer eight wide tablet sixteen wide mobile column">
-                    <div class="ui fluid card">
-                        <div class="content">
-                            <div class="ui right floated header purple">
-                                <i class="icon paint brush"></i>
-                            </div>
-                            <div class="header">
-                                <div class="ui purple header">In Your Face</div>
-                                <div class="sub header">$889.82</div>
-                            </div>
-                            <div class="meta blue">SET x 3 unidades</div>
-                            <div class="description">
-                                Chocolate + Gloss + Baby Pink
-                            </div>
-                        </div>
-                        <div class="extra content">
-                            <div class="ui two buttons">
-                                <div class="ui purple button">Ver en Farmacias</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <!-- Tercera Tarjeta de productos -->
+                <?php } ?>
             </div>
             <!-- Tarjeta de productos -->
             <div class="ui grid stackable padded">
@@ -311,38 +247,6 @@
                 </div>
             </div>
             <!-- FIN MENÚ PAGINACIÓN -->
-            <!-- Footer -->
-            <div class="ui inverted vertical footer segment">
-                <div class="ui container">
-                    <div class="ui stackable inverted divided equal height stackable grid">
-                        <div class="three wide column">
-                            <h4 class="ui inverted header">About</h4>
-                            <div class="ui inverted link list">
-                                <a href="#" class="item">Sitemap</a>
-                                <a href="#" class="item">Contact Us</a>
-                                <a href="#" class="item">Religious Ceremonies</a>
-                                <a href="#" class="item">Gazebo Plans</a>
-                            </div>
-                        </div>
-                        <div class="three wide column">
-                            <h4 class="ui inverted header">Services</h4>
-                            <div class="ui inverted link list">
-                                <a href="#" class="item">Banana Pre-Order</a>
-                                <a href="#" class="item">DNA FAQ</a>
-                                <a href="#" class="item">How To Access</a>
-                                <a href="#" class="item">Favorite X-Men</a>
-                            </div>
-                        </div>
-                        <div class="seven wide column">
-                            <h4 class="ui inverted header">Footer Header</h4>
-                            <p>
-                                Extra space for a call to action inside the footer that could
-                                help re-engage users.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 

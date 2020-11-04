@@ -23,6 +23,7 @@
     $id = $_GET["id"];
     $consul = $pdo->prepare("DELETE FROM farmacias WHERE id_farmacias = ? ");
     $consul->execute([$id]);
+    header( "refresh:5;url=farmaciasadmin.php" ); // sirve para mandar a los 5 segundos a una url que señalemos
     ?>
     <!-- Sidebar Menu -->
     <?php include './includes/pages/sidebarmenu.php' ?>

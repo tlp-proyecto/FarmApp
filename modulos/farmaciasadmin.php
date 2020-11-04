@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +13,7 @@
     <link rel="stylesheet" href="../css/style.css" />
 
 </head>
+
 <body>
     <?php
     //conexion a la base de datos
@@ -73,9 +75,20 @@
                                                 <td>
                                                     <h3 class="ui center aligned header"><?php echo $mostrar->nombre ?></h3>
                                                 </td>
-                                                <td class="single line warning">
-                                                    <h5><i class="attention red icon"></i>Fuera de Turno</h5>
-                                                </td>
+                                                <?php
+
+                                                if (($mostrar->horario_matutino_1 === $mostrar->horario_vespertino_2 && $mostrar->horario_matutino_2 === $mostrar->horario_vespertino_1) ) {
+                                                    echo '<td>
+                                                            <h5><i class="plus green icon"></i>De Turno</h5>
+                                            
+                                                          </td>';
+                                                } else {
+                                                    echo '<td class="single line warning">
+                                                             <h5><i class="attention red icon"></i>Fuera de Turno</h5>
+                                                         </td>';
+                                                }
+                                                ?>
+
                                                 <td class="ui center aligned">
                                                     <iframe src="<?php echo $mostrar->link_direccion ?>" width="200" height="100" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
                                                 </td>
@@ -124,8 +137,9 @@
                     <!--// FIN DE TABLA DE FARMACIAS //  -->
                 </div>
             </div>
-            <!-- Footer -->
+            <!-- Footer 
             <?php include './includes/pages/footer.php' ?>
+            -->
         </div>
     </div>
 
@@ -147,4 +161,5 @@
         });
     </script>
 </body>
+
 </html>

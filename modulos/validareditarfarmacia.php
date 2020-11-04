@@ -4,12 +4,15 @@ session_start();
 
 $id = $_GET["id"];
 if (isset($_POST['editar'])) {
-    $emailActual = $_POST["emailActual"];
-    $email = $_POST["email"];
-    $passwordActual = $_POST["contraseniaActual"];
-    $password = $_POST["contrasenia"];
-    $password2 = $_POST["contrasenia2"];
-    $contraDB = md5($password);
+    $id_farmacias=$_POST["id_farmacias"];
+    $nombre = $_POST["nombre"];
+    $link_direccion = $_POST["link_direccion"];
+    $calle = $_POST["calle"];
+    $altura = $_POST["altura"];
+    $horario_matutino_1 = $_POST["horario_matutino_1"];
+    $horario_matutino_2 = $_POST["horario_matutino_2"];
+    $horario_vespertino_1 = $_POST["horario_vespertino_1"];
+    $horario_vespertino_2 = $_POST["horario_vespertino_2"];
 
     //  vamos a validar que hayan contraseña de usuarios correcta.
     $sql_validar = ("SELECT COUNT(*) FROM usuarios_personas WHERE EMAIL= :email AND PASSWORD = :passwordActual");

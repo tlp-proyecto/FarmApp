@@ -90,16 +90,7 @@
         <div class="item">
           <div class="header">Usuarios Conectados</div>
           <div class="menu">
-            <ul id="users"></ul>
             <a class="item">
-              <div class="ui middle aligned selection list">
-                <div class="item">
-                  <img class="ui avatar image" src="../img/avatar//joe.jpg">
-                  <div class="content">
-                    <div class="header">Joe</div>
-                  </div>
-                </div>
-              </div>
               <ul id="users"><i class="user icon"></i> JUAN DAVID</ul>
             </a>
           </div>
@@ -205,20 +196,5 @@
     ></script>
     <script src="/socket.io/socket.io.js"></script>
     <script src="js/main.js"></script>
-    <script>
-    $(document).ready(function() {
-      $('.ui.dropdown').dropdown();
-      $('.sidebar-menu-toggler').on('click', function() {
-        var target = $(this).data('target');
-        $(target)
-          .sidebar({
-            dinPage: true,
-            transition: 'overlay',
-            mobileTransition: 'overlay'
-          })
-          .sidebar('toggle');
-      });
-    });
-  </script>
   </body>
 </html>
