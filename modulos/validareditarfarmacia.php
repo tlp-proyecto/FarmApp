@@ -13,16 +13,17 @@ if (isset($_POST['editar'])) {
     $horario_matutino_2 = $_POST["horario_matutino_2"];
     $horario_vespertino_1 = $_POST["horario_vespertino_1"];
     $horario_vespertino_2 = $_POST["horario_vespertino_2"];
+    $status = $_POST["status"];
 
     //  vamos a validar que hayan contraseña de usuarios correcta.
-    $sql_validar = ("SELECT COUNT(*) FROM usuarios_personas WHERE EMAIL= :email AND PASSWORD = :passwordActual");
-    $sentenciaValidar = $conexion->prepare($sql_validar);
+    $sql_validar = ("SELECT COUNT(*) FROM farmacias WHERE id_farmacias = :id_farmacias");
+    $sentenciaValidar = $pdo->prepare($sql_validar);
     //pasamos los parámetros definidos para ejecutar nuestra sentencia.
-    $sentenciaValidar->execute(array(":email" => $emailActual, ":passwordActual" => $passwordActual));
+    $sentenciaValidar->execute(array(":id_farmacias" => $id_farmacias));
 
     if ($sentenciaValidar->fetchColumn() == 0) {
         // cuando no se encuentra el usuario y contraseña correspondiente
-        die('El usuario y/o contraseña no sido registrado anteriormente...');
+        die('La farmacia no existe...');
     }
 
     if (empty($email)) {

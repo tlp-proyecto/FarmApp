@@ -20,7 +20,7 @@
     require('conexion.php');
     session_start();
     //include 'conexion.php';
-    $consulta = "SELECT `id_farmacias`, `nombre`, `link_direccion`, `calle`, `altura`, `horario_matutino_1`, `horario_matutino_2`, `horario_vespertino_1`, `horario_vespertino_2`, `status` FROM `farmacias`";
+    $consulta = "SELECT `id_farmacias`, `nombre`, `link_direccion`, `calle`, `altura`, `horario_matutino_1`, `horario_matutino_2`, `horario_vespertino_1`, `horario_vespertino_2` FROM `farmacias` JOIN `farmacias_usuarios` WHERE farmacias.id_farmacias = farmacias_usuarios.rela_farmacias AND farmacias_usuarios.rela_usuarios = ".$_SESSION['user_id'];
     $sql = $pdo->query($consulta);
     $sql2 = $sql->fetchAll(PDO::FETCH_OBJ);
     ?>
@@ -77,9 +77,10 @@
                                                 </td>
                                                 <?php
 
-                                                if (($mostrar->horario_matutino_1 === $mostrar->horario_vespertino_2 && $mostrar->horario_matutino_2 === $mostrar->horario_vespertino_1) || ($mostrar->status === "de turno")) {
+                                                if (($mostrar->horario_matutino_1 === $mostrar->horario_vespertino_2 && $mostrar->horario_matutino_2 === $mostrar->horario_vespertino_1) ) {
                                                     echo '<td>
                                                             <h5><i class="plus green icon"></i>De Turno</h5>
+                                            
                                                           </td>';
                                                 } else {
                                                     echo '<td class="single line warning">
